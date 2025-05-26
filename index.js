@@ -25,7 +25,7 @@ app.post('/centro_treinamento' , (req, res) => {
     console.log(sessoes)
 
     conexao.query(
-        'insert into sessoes (aluno, personal, tipo_treino, data, horario, observacoesvalues(?,?,?,?,?,?)'
+        'insert into sessoes (aluno, personal, tipo_treino, data, horario, observacoes) values(?,?,?,?,?,?)',
         [
             sessoes.aluno,
             sessoes.personal,
@@ -41,12 +41,12 @@ app.post('/centro_treinamento' , (req, res) => {
         
     )
 })
-app.get('/centro_treinamento', (res, req) => {
+app.get('/centro_treinamento', (req, res) => {
     conexao.query('select * from sessoes', (err, results) => {
         if (err) {
             return res.status(500).send("erro ao buscar sessão")
         }
-        res.status(200).sed(results)
+        res.status(200).send(results)
     })    
 })
 app.listen(3000, ()=> {
